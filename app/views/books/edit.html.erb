@@ -1,0 +1,7 @@
+<%= simple_form_for @book, :html => { :multipart => true } do |f| %>
+  <%= f.select :category_id, @categories   %>  
+  <%= f.input :title %>
+  <%= f.input :author %>
+  <%= f.input :description %>
+  <%= f.button :submit %>
+<% end %>

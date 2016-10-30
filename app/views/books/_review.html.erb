@@ -1,0 +1,17 @@
+<div class="review">
+    <div class="star-rating" data-score=<%= review.rating %> ></div>
+    <p><%= "#{distance_of_time_in_words_to_now(review.updated_at)} ago by @#{review.user.username}" %></p>
+    <p><%=review.comment %></p>
+
+    <% if user_signed_in? %>
+        <% if current_user.id == review.user_id %>
+            <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_book_review_path(@book, review), class: "btn "  %>
+            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, book_review_path(@book, review), method: :delete, data: {confirm: "Are you sure" }, class: "btn "  %>
+        <% end %>
+    <% end %>
+    <hr>    
+</div>
+
+
+
+

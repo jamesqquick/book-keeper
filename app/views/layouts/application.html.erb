@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workspace</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  
+  <div class="nav navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <%= link_to "Book Keeper", root_path, class: "navbar-brand" %>
+      </div>
+      
+      <!--<ul class="navbar-nav nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Category <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <% Category.all.each do |category| %>
+              <li class="<%= 'active' if params[:category] == category.name %>">
+                <%= link_to category.name, books_path(category: category.name), class: "link" %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      </ul> -->
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+        <% if user_signed_in? %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%=current_user.username%> <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Follow Friends", users_path %></li>
+              <li><%= link_to "My Profile", user_path(current_user.id) %></li> 
+              <li><%= link_to "Edit Profile", edit_user_registration_path %></li> 
+              <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+            </ul>
+          </li>
+        <% else %>
+        
+        <li><%= link_to "Sign In", new_user_session_path %></li>
+        <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <% end %>
+      </ul> 
+      
+      <form class="navbar-form navbar-right" action="/books/new/" method="get">
+        <div class="form-group">
+          <input type="text" name="q" class="form-control" placeholder="Search Books">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="container">
+    <% if !notice.nil? %>
+      <p class="notice alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><%= notice %></p>
+    <% end %>
+    <% if !alert.nil? %>
+      <p class="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><%= alert %></p>  
+    <% end %>
+    
+    <%= yield %>
+  </div>
+</body>
+</html>

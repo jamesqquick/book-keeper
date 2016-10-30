@@ -1,0 +1,62 @@
+
+<% if !@searchBooks.nil? %>
+    <% @searchBooks.each do |searchBook| %>
+        <div class="col-md-3 col-sm-6">
+                <a href="#book-<%=searchBook.isbn%>" data-toggle="modal">
+                    <div class="book-hover">
+                        <div class="book-hover-content">
+                            <p>View Details</p>
+                        </div>
+                    </div>
+                    <%=image_tag  searchBook.image_link, class: "book" %>  
+                </a>
+                
+                <!-- Modal content-->
+              <!-- Modal -->
+              <div class="modal fade" id="book-<%=searchBook.isbn%>" role="dialog">
+                <div class="modal-dialog">
+                
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset-1">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                <div class="col-sm-4">
+                                    <%=image_tag  searchBook.image_link, class:"img-responsive" %> 
+                                </div>
+                                <div class="div col-sm-8">
+                                  <h4 class="modal-title"><strong><%= searchBook.title%></strong> </h4>
+                                    <p><strong>By <%=searchBook.authors_array.first%></strong> </p>
+                                    <% if user_signed_in? %>
+                                        <%= simple_form_for @book do |f| %>
+                                            <%= f.hidden_field :category_name,   :value => searchBook.categories %>
+                                            <%= f.hidden_field :title,           :value => searchBook.title %>
+                                            <%= f.hidden_field :author,          :value => searchBook.authors_array.first %>
+                                            <%= f.hidden_field :description,     :value => searchBook.description %>
+                                            <%= f.hidden_field :image_url,       :value => searchBook.image_link %>
+                                            <%= f.button :submit, "Add Book", class: "btn-primary btn" %>
+                                        <% end %>
+                                    <% end %>
+                                </div> <!-- end details content -->                              
+                            </div>
+
+                        </div><!-- end row -->
+                    </div>
+                    <div class="modal-body">
+                      <p><%=searchBook.description%></p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            
+            
+        </div>
+        
+        
+    <% end %>
+<% end %>

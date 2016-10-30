@@ -1,0 +1,141 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+
+
+@mixin background-tile {
+	box-sizing: border-box;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 3px 3px 5px 6px #ccc;
+	padding: 1.5em 1.25em;
+	margin:10px;
+}
+
+.jumbotron {
+	margin: 0 -70px;
+}
+
+.book {
+    height: 350px;
+	width: 250px;
+	margin-bottom: 40px;
+	@include background-tile;
+}
+
+.modal-content {
+	padding:15px;
+}
+
+.book-show-section {
+
+	.book-detail-row {
+	    display:flex;
+	    align-items:center;
+	    
+	    .book-btn {
+	    	font-size: 18px;
+	    }
+
+	    
+	    .book-show {
+	    	height: 350px;
+			width: 250px;
+			border-radius: 5px;
+	    }
+	    
+	    .page-header {
+	    	margin-top:10px;
+	    }
+
+		.book-detail {
+		}
+	}
+}
+
+
+
+
+.book-hover {
+	@include background-tile;
+	background-color:rgba(0, 0, 0, 0.6);
+	position: absolute;
+	height: 350px;
+	width: 250px;
+	opacity: 0;
+	transition: all ease 0.5s;
+	-webkit-transition: all ease 0.5s;
+	-moz-transition: all ease 0.5s;
+}
+
+.book-hover:hover {
+	opacity:1;
+}
+.book-hover-content{
+	position: absolute;
+	width: 100%;
+	font-size: 20px;
+	text-align: center;
+	top: 45%;
+	color: white;
+	margin-left:-17px;
+}
+
+.add-btn {
+	margin-top:-20px;
+	margin-bottom:20px;
+}
+
+.user-details {
+	@include background-tile;
+	margin:10px 0;
+}
+
+#user-search-form {
+	margin: 10px 0; ;	
+}
+
+#reviews-section {
+	hr {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	.page-header {
+		margin-top:5px;
+	}
+	padding: 0.5em 1.0em;
+	
+	.review {
+		
+		p {
+			margin: 5px 0 0px;	
+		}		
+	}
+}
+
+.user-row {
+	
+	margin: 25px 0;
+	.user-details {
+		h4, p {
+			margin-bottom:5px;
+		}
+		
+		.username {
+			font-size:24px;
+		}
+	}	
+}
+
+.user-books {
+	.page-header {
+		margin-top: 5px;
+	}
+	
+	.books-row {
+		@include background-tile;
+	}
+}
+

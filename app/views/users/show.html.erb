@@ -1,0 +1,36 @@
+
+<div class="col-md-8 col-md-offset-2">
+    <div class="row user-row">
+         <div class="user-details">
+            <p class="text-center username">@<%= @user.username %> </p>
+            <p class="text-center" >Read <%= @user.books.count %> books </p> 
+        </div>  
+    </div>  
+    <div class="row user-books">
+        <div class="row books-row">
+            <h3 class="page-header">Read Books</h3>
+
+            <div class="row">
+                <%= render 'shared/book_list' %>
+            </div>
+        </div>
+        
+        
+        <div class="row books-row">
+            <h3 class="page-header">Queued Books</h3>
+
+            <div class="row">
+                <%= render 'shared/book_list' %>
+            </div>
+        </div>
+        
+        <div class="row books-row">
+            <h3 class="page-header">Favorite Books</h3>
+
+            <div class="row">
+                <%= render 'shared/book_list' %>
+            </div>
+        </div>
+    </div>    
+</div>
+
