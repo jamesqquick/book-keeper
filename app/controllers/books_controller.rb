@@ -4,29 +4,46 @@ class BooksController < ApplicationController
     before_action :authenticate_user!, except:[:index, :show]
     
     def index
+        #Get all the most recently read books regardless of who read them
         @books = Book.all.order("updated_at DESC").take(4)
     end
     
     def new
-        @book = current_user.books.build
+        @book = Book.new
 
         if params[:q].nil?
         else
-            @searchBooks = GoogleBooks.search(params[:q], {:count => 10})
+            #Search Google Books
+            @unfilteredSearchBooks = GoogleBooks.search(params[:q], {:count => 10})
+            #Filter by books that have an ISBN Number
+            @searchBooks = @unfilteredSearchBooks.select  {|book| book.isbn.present?}
         end
-        #Get list of categories to be shown in the new page
-        #Options needs to be in form of an array - mapping the id to the name of the category
-        @categories = Category.all.map{ |c| [c.name, c.id] }
-        
     end
     
     def create
-        @book = current_user.books.build(book_params)
-        if @book.save
+        # If the book has not been created, then create it
+        # Either retrieve the book or create it, then add an association between user and book in UserBook table
+        
+        @book_exists = Book.where(isbn: params[:book][:isbn]).exists?
+
+        #if the book already exists, just create the association
+        if @book_exists
+            @book = Book.where(id: params[:id])
+            @userBook = UserBook.create(user_id:current_user.id, book_id:@book.id )
+            @userBook.save
             redirect_to root_path
+        #Else crete the book and then the association
         else
-            redirect_to root_path
+            @book = Book.new(book_params)
+            if @book.save
+                @userBook = UserBook.create(user_id:current_user.id, book_id:@book.id, isbn:@book.isbn)
+                @userBook.save
+                redirect_to root_path
+            else
+                redirect_to root_path
+            end          
         end
+
     end
     
     def show
@@ -59,7 +76,7 @@ class BooksController < ApplicationController
     
     private
         def book_params
-            params.require(:book).permit(:title, :author, :description, :category_name, :image_url, :id)
+            params.require(:book).permit(:title, :author, :description, :category_name, :image_url, :isbn)
         end
         
         def find_book

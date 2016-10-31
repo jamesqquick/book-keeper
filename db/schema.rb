@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027023549) do
+ActiveRecord::Schema.define(version: 20161031153551) do
 
   create_table "average_caches", force: :cascade do |t|
     t.integer  "rater_id"
@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(version: 20161027023549) do
     t.text     "description"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "user_id"
     t.integer  "category_id"
     t.string   "image_url"
     t.string   "category_name"
+    t.string   "isbn"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -82,6 +82,18 @@ ActiveRecord::Schema.define(version: 20161027023549) do
     t.integer  "book_id"
   end
 
+  create_table "user_books", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "isbn"
+  end
+
+  add_index "user_books", ["book_id"], name: "index_user_books_on_book_id"
+  add_index "user_books", ["user_id"], name: "index_user_books_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -96,10 +108,8 @@ ActiveRecord::Schema.define(version: 20161027023549) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "username"
-    t.integer  "book_id"
   end
 
-  add_index "users", ["book_id"], name: "index_users_on_book_id"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

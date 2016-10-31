@@ -26,18 +26,28 @@
                                 <div class="col-sm-4">
                                     <%=image_tag  searchBook.image_link, class:"img-responsive" %> 
                                 </div>
-                                <div class="div col-sm-8">
+                                
+                                <div class="div col-sm-8"> <!-- Book details Form -->
                                   <h4 class="modal-title"><strong><%= searchBook.title%></strong> </h4>
-                                    <p><strong>By <%=searchBook.authors_array.first%></strong> </p>
-                                    <% if user_signed_in? %>
-                                        <%= simple_form_for @book do |f| %>
-                                            <%= f.hidden_field :category_name,   :value => searchBook.categories %>
-                                            <%= f.hidden_field :title,           :value => searchBook.title %>
-                                            <%= f.hidden_field :author,          :value => searchBook.authors_array.first %>
-                                            <%= f.hidden_field :description,     :value => searchBook.description %>
-                                            <%= f.hidden_field :image_url,       :value => searchBook.image_link %>
-                                            <%= f.button :submit, "Add Book", class: "btn-primary btn" %>
-                                        <% end %>
+                                    
+                                    <!-- dont allow adding of book if user already has -->
+                                    <% puts " ISBN Number: #{searchBook.isbn} and User ID #{current_user.id}" %>
+                                    <% puts "Owns Book:  #{!UserBook.where(isbn: searchBook.isbn, user_id: current_user.id).empty?}" %>
+                                    <% if UserBook.where(isbn: searchBook.isbn, user_id: current_user.id).empty?  %>
+                                      <p><strong>By <%=searchBook.authors_array.first%></strong> </p>
+                                      <% if user_signed_in? %>
+                                          <%= simple_form_for @book do |f| %>
+                                              <%= f.hidden_field :category_name,   :value => searchBook.categories %>
+                                              <%= f.hidden_field :title,           :value => searchBook.title %>
+                                              <%= f.hidden_field :author,          :value => searchBook.authors_array.first %>
+                                              <%= f.hidden_field :description,     :value => searchBook.description %>
+                                              <%= f.hidden_field :image_url,       :value => searchBook.image_link %>
+                                              <%= f.hidden_field :isbn,            :value => searchBook.isbn %>
+                                              <%= f.button :submit, "Add Book", class: "btn-primary btn" %>
+                                          <% end %>
+                                      <% end %>
+                                    <% else %>
+                                      <p>You've already marked this book</p>
                                     <% end %>
                                 </div> <!-- end details content -->                              
                             </div>
