@@ -58,14 +58,9 @@
 
   </div>
 
+  <%= render 'shared/messages' %>
+
   <div class="container">
-    <% if !notice.nil? %>
-      <p class="notice alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><%= notice %></p>
-    <% end %>
-    <% if !alert.nil? %>
-      <p class="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><%= alert %></p>  
-    <% end %>
-    
     <%= yield %>
   </div>
 </body>

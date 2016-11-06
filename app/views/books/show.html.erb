@@ -1,40 +1,46 @@
-
-
-<div class="book-show-section">
-    <div class="row book-detail-row">
-        <div class="col-md-4">
-                <%= image_tag @book.image_url(), class: "book-show center-block" %> 
-        </div>
-        <div class="col-md-7">
-            <h3><%= @book.title %></h3>
-            <p>By <%= @book.author %></p>
-            <p><%= @book.description %></p>
-<div class="edit-book">
-                    <% if user_signed_in? %>
-                        <% if @book.user_id == current_user.id %>
-                            <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_book_path(@book), class: "btn book-btn"  %>
-                            <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, book_path(@book), method: :delete, data: {confirm: "Are you sure" }, class: "btn book-btn"  %>
-                        <% end %>
+<div class="container">
+  
+  <div class="book-show-section">
+        <div class="row book-detail-row">
+            <div class="col-md-4">
+                    <%= image_tag @book.image_url(), class: "book-show center-block" %> 
+            </div>
+            <div class="col-md-7">
+                <h3><%= @book.title %></h3>
+                <p>By <%= @book.author %></p>
+                <p><%= @book.description %></p>
+                <div class="edit-book">
+                        <% if false %> <%# Only give admins the right to delete the books %>
+                            <% if user_signed_in? %>
+                                <% if @book.user_id == current_user.id %>
+                                    <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_book_path(@book), class: "btn book-btn"  %>
+                                    <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, book_path(@book), method: :delete, data: {confirm: "Are you sure" }, class: "btn book-btn"  %>
+                                <% end %>
+                            <% end %> 
+                        <% end %> 
                         <% if !@review.id.present? %>
-                            <% puts @review %>
                             <%= link_to "Add Review", new_book_review_path(@book), class: "btn btn-primary" %>     
                         <% end %>
-                    <% end %>     
-                </div>
-               
-        </div> 
+                    </div>
+                   
+            </div> 
+        </div>
+        <hr>
+        <div id="reviews-section">
+            
+            <% if @reviews.blank? %>
+                <p>Be the first to review this book.</p>
+            <% else %>
+                <% @reviews.each do  |review| %>
+                    <%= render partial: 'review', locals: {review: review } %>
+                <% end %>  
+            <% end %>
+        </div>
     </div>
-    <hr>
-    <div id="reviews-section">
-        <% if @reviews.blank? %>
-            <p>Be the first to review this book.</p>
-        <% else %>
-            <% @reviews.each do  |review| %>
-                <%= render partial: 'review', locals: {review: review } %>
-            <% end %>  
-        <% end %>
-    </div>
+    
 </div>
+
+
 
 <script>
     $(document).ready(function() {

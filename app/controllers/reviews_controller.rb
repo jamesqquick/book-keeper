@@ -21,9 +21,11 @@ class ReviewsController < ApplicationController
     @review.book_id = @book.id
     
     if @review.save
-      redirect_to @book, notice: 'Review was successfully created.' 
+      flash[:success] = "Review successfully created"
+      redirect_to @book
     else
-      redirect_to @book, notice: 'Review not created' 
+      flash[:danger] = "Review not created"
+      redirect_to @book
     end
   end
 
@@ -31,9 +33,11 @@ class ReviewsController < ApplicationController
   # PATCH/PUT /reviews/1.json
   def update
     if @review.update(review_params)
-        redirect_to @book, notice: 'Review was successfully updated.' 
+        flash[:success] = "Review successfully updated"
+        redirect_to @book
       else
-        redirect_to @book, notice: 'Review not updated' 
+        flash[:danger] = "Review not updated"
+        redirect_to @book 
       end
   end
 
@@ -41,7 +45,8 @@ class ReviewsController < ApplicationController
   # DELETE /reviews/1.json
   def destroy
     @review.destroy
-    redirect_to @book, notice: 'Review was successfully destroyed.'
+    flash[:success] = "Review successfully deleted"
+    redirect_to @book
 
   end
 

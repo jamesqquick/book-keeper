@@ -23,16 +23,13 @@ class BooksController < ApplicationController
     def create
         # If the book has not been created, then create it
         # Either retrieve the book or create it, then add an association between user and book in UserBook table
-        
-        @book_exists = Book.where(isbn: params[:book][:isbn]).exists?
-
+        @book = Book.where(isbn: params[:book][:isbn]).first
         #if the book already exists, just create the association
-        if @book_exists
-            @book = Book.where(id: params[:id])
-            @userBook = UserBook.create(user_id:current_user.id, book_id:@book.id )
+        if !!@book
+            @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id )
             @userBook.save
             redirect_to root_path
-        #Else crete the book and then the association
+        #Else create the book and then the association
         else
             @book = Book.new(book_params)
             if @book.save

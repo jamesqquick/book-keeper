@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="">
+            <% flash.each do |name, msg| %>
+                <% if msg.include? "Invalid" %>
+                    <% name = "danger" %>
+                <% else %>
+                    <% name = "success" %>
+                <% end %>
+                <% puts "alert-#{name}" %>
+                <div class='alert <%= "alert-#{name}" %>'>
+                    <a href="#" class="close" data-dismiss="alert">x</a>
+                    <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    
+</div>
+
