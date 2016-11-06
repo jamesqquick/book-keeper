@@ -4,6 +4,7 @@ class BooksController < ApplicationController
     before_action :authenticate_user!, except:[:index, :show]
     
     def index
+        redirect_to feed_path if current_user
         #Get all the most recently read books regardless of who read them
         @books = Book.all.order("updated_at DESC").take(4)
     end

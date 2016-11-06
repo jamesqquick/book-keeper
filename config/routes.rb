@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   post '/rate' => 'rater#create', :as => 'rate'
   devise_for :users
-  resources :users
+
+  get '/users/:id', to: 'users#show'
+  get '/feed', to: 'users#feed'
+  get '/friends', to: 'users#friends'
+
   root 'books#index'
 
   resources :books do
