@@ -36,6 +36,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_follower (0.2.1)
     arel (6.0.3)
     autoprefixer-rails (6.5.1)
       execjs
@@ -179,6 +180,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_follower
   bootstrap-sass (~> 3.3, >= 3.3.7)
   byebug
   coffee-rails (~> 4.1.0)

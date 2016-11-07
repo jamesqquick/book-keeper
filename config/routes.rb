@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get '/feed', to: 'users#feed'
   get '/friends', to: 'users#friends'
   get '/users', to: 'users#index'
+  
+  post '/follows', to: 'follows#create'
+  delete '/follows', to: 'follows#destroy'
 
   root 'books#index'
 
