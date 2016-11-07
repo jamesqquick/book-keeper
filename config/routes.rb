@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/users/:id', to: 'users#show'
   get '/feed', to: 'users#feed'
   get '/friends', to: 'users#friends'
+  get '/users', to: 'users#index'
 
   root 'books#index'
 
