@@ -11,7 +11,18 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @books = @user.books.take(3)
+    @usersbooks = @user.books.where(list_type: "read")
+    @readUserBooks = UserBook.where(user_id: @user.id, list_type: "read")
+    @readBooks = []
+    @readUserBooks.each do |userReadBook|
+      @readBooks.push(Book.find(userReadBook.book_id)) 
+    end
+    
+    @queuedBooks = []
+    @queuedUserBooks = UserBook.where(user_id: @user.id, list_type: "queue")
+    @queuedUserBooks.each do |userQueuedBook|
+      @queuedBooks.push(Book.find(userQueuedBook.book_id)) 
+    end
   end
   
   def feed

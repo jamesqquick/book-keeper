@@ -43,8 +43,22 @@
                                               <%= f.hidden_field :description,     :value => searchBook.description %>
                                               <%= f.hidden_field :image_url,       :value => searchBook.image_link %>
                                               <%= f.hidden_field :isbn,            :value => searchBook.isbn %>
-                                              <%= f.button :submit, "Add Book", class: "btn-primary btn" %>
+            
+                                              <%= f.button :submit, "Read", class: "btn-primary btn btn-sm", name: "type", value: "read" %>
                                           <% end %>
+                                          
+                                          <%= simple_form_for @book do |f| %>
+                                              <%= f.hidden_field :category_name,   :value => searchBook.categories %>
+                                              <%= f.hidden_field :title,           :value => searchBook.title %>
+                                              <%= f.hidden_field :author,          :value => searchBook.authors_array.first %>
+                                              <%= f.hidden_field :description,     :value => searchBook.description %>
+                                              <%= f.hidden_field :image_url,       :value => searchBook.image_link %>
+                                              <%= f.hidden_field :isbn,            :value => searchBook.isbn %>
+                                              <%= f.hidden_field :type,             :value => "queue" %>
+                                              <%= f.button :submit, "Add To Queue", class: "btn-primary btn btn-sm", name: "type", value: "queue" %>
+                                          <% end %>
+                                          
+
                                       <% end %>
                                     <% else %>
                                       <p>You've already marked this book</p>

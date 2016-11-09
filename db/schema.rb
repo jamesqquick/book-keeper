@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161107011354) do
+ActiveRecord::Schema.define(version: 20161108034455) do
 
   create_table "average_caches", force: :cascade do |t|
     t.integer  "rater_id"
@@ -98,10 +98,10 @@ ActiveRecord::Schema.define(version: 20161107011354) do
   create_table "user_books", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "book_id"
-    t.string   "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "isbn"
+    t.string   "list_type"
   end
 
   add_index "user_books", ["book_id"], name: "index_user_books_on_book_id"

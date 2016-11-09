@@ -25,16 +25,16 @@ class BooksController < ApplicationController
         # If the book has not been created, then create it
         # Either retrieve the book or create it, then add an association between user and book in UserBook table
         @book = Book.where(isbn: params[:book][:isbn]).first
-        #if the book already exists, just create the association
-        if !!@book
-            @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id )
+        if @book
+            @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id, list_type: params[:list_type])
             @userBook.save
             redirect_to root_path
         #Else create the book and then the association
         else
             @book = Book.new(book_params)
             if @book.save
-                @userBook = UserBook.create(user_id:current_user.id, book_id:@book.id, isbn:@book.isbn)
+                #how to add the type parameter?
+                @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id, isbn: @book.isbn, list_type: params[:type])
                 @userBook.save
                 redirect_to root_path
             else
@@ -52,7 +52,6 @@ class BooksController < ApplicationController
     
     
     def edit
-        @categories = Category.all.map{ |c| [c.name, c.id] }
     end
     
     def update
@@ -74,7 +73,7 @@ class BooksController < ApplicationController
     
     private
         def book_params
-            params.require(:book).permit(:title, :author, :description, :category_name, :image_url, :isbn)
+            params.require(:book).permit(:title, :author, :description, :category_name, :image_url, :isbn, :list_type)
         end
         
         def find_book
