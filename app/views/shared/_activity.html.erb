@@ -1,0 +1,4 @@
+<% @activityUser  = User.find(activity.user_id) %>
+<% @activityBook  = Book.find(activity.book) %>
+<h3><a><%= @activityUser.username %></a> <%=activity.list_type %> "<%= @activityBook.title %>"</h3>
+<h4><%= time_ago_in_words(activity.updated_at) %> ago</h4>

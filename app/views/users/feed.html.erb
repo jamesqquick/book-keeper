@@ -1,0 +1,12 @@
+<div class="row user-row">
+    <h4>User Feed</h4></h4>
+    <div class="row activity-row">
+        <% @friendActivities.each do |activity| %>
+            <div class="activity col-md-4">
+                    <%= render partial: 'shared/activity', locals: {activity: activity} %>
+            </div>
+        <% end %>   
+          
+    </div>
+    
+</div> 

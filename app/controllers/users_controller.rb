@@ -26,7 +26,13 @@ class UsersController < ApplicationController
   end
   
   def feed
-
+      @friends =  current_user.all_following;
+      @friendActivities = Array.new
+      @friends.each do |friend|
+          @friendActivities += UserBook.where("user_id": friend.id)
+      end
+      @friendActivities = @friendActivities.sort_by &:created_at
+      @friendActivities = @friendActivities.reverse
   end
   
   def friends
