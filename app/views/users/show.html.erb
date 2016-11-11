@@ -1,28 +1,19 @@
 
-<div class="col-xs-10 col-xs-offset-1">
+<div>
     <div class="row user-row">
-         <div class="user-details">
-            <p class="text-center username">@<%= @user.username %> </p>
-            <p class="text-center" >Read <%= @user.books.count %> books </p> 
-        </div>  
+            <h4><a class="text-center" href="/users/<%=@user.id%>"><p>@<%= @user.username %></p></a></h4>
+            <p class="text-center" >Read <%= @readBooks.count %> books </p> 
+            <p class="text-center"> <%= pluralize(@user.followers.count, "Follower")%> | Following <%= @user.all_following.count%></p>
     </div>  
-    <div class="row user-books">
-        <div class="row books-row">
-            <h3 class="page-header">Read Books</h3>
 
-            <div class="row">
-                <%= render partial: 'shared/book_list', locals: {books: @readBooks} %>
-            </div>
-        </div>
-        
-        
-        <div class="row books-row">
-            <h3 class="page-header">Queued Books</h3>
-
-            <div class="row">
-                <%= render partial: 'shared/book_list', locals: {books: @queuedBooks} %>
-            </div>
-        </div>
-    </div>    
+    <h3 class="page-header">Read Books</h3>
+    <div class="row">
+        <%= render partial: 'shared/book_list', locals: {books: @readBooks} %>
+    </div>
+    
+    <h3 class="page-header">Queued Books</h3>
+    <div class="row">
+        <%= render partial: 'shared/book_list', locals: {books: @queuedBooks} %>
+    </div>
 </div>
 

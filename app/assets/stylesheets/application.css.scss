@@ -18,8 +18,8 @@
 }
 
 .book {
-    height: 350px;
-	width: 250px;
+    height: 300px;
+	width: 210px;
 	margin-bottom: 40px;
 	@include background-tile;
 }
@@ -61,8 +61,8 @@
 	@include background-tile;
 	background-color:rgba(0, 0, 0, 0.6);
 	position: absolute;
-	height: 350px;
-	width: 250px;
+	height: 300px;
+	width: 210px;
 	opacity: 0;
 	transition: all ease 0.5s;
 	-webkit-transition: all ease 0.5s;
@@ -71,6 +71,7 @@
 
 .book-hover:hover {
 	opacity:1;
+
 }
 .book-hover-content{
 	position: absolute;

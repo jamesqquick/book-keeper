@@ -1,7 +1,7 @@
 <% books.each do |book| %>
-    <div class="col-md-3">
+    <div class="col-xs-2">
          <a href="/books/<%=book.id%>">
-            <%=image_tag  book.image_url, class: "thumbnail center-block" %>    
+            <%=image_tag  book.image_url, class: "book center-block" %>    
         </a>  
     </div>
 <% end %>

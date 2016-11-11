@@ -28,7 +28,7 @@ class BooksController < ApplicationController
         if @book
             @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id, list_type: params[:list_type])
             @userBook.save
-            redirect_to root_path
+            redirect_to new_book_path
         #Else create the book and then the association
         else
             @book = Book.new(book_params)
@@ -36,9 +36,9 @@ class BooksController < ApplicationController
                 #how to add the type parameter?
                 @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id, isbn: @book.isbn, list_type: params[:type])
                 @userBook.save
-                redirect_to root_path
+                redirect_to new_book_path
             else
-                redirect_to root_path
+                redirect_to new_book_path
             end          
         end
 
