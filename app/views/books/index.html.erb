@@ -1,9 +1,20 @@
 <div class="jumbotron">
   <h1>Book-Keeper</h1>
   <p>Book Keeper allows you to track the books that you and your friends have read.  By using Google Books, it allows you to easily search and add books.  Never forget the books you've read again!</p>
-  <p><a class="btn btn-primary btn-lg" href="/about" role="button">Learn more</a></p>
+  <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-lg btn-primary" %>
+
+  
 </div>
 
 <h3 class="page-header">Recently Read Books</h3>
 
-<%= render 'shared/book_list' %>
+<div class="activity-section section">
+  <% @books.each do |activity| %>
+      <div class="col-md-8 col-md-offset-2">
+          <div class="activity row ">
+              <%= render partial: 'shared/activity', locals: {activity: activity} %>
+          </div>
+      </div>
+  <% end %>
+</div>
+  

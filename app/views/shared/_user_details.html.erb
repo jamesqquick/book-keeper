@@ -1,24 +1,20 @@
+<div class="user-details col-sm-3">
+    <h4><a class="text-center" href="/users/<%=user.id%>"><p>@<%= user.username %></p></a></h4>
+    <p class="text-center" >Read <%= user.books.count %> books </p> 
+    <p class="text-center"> <%= pluralize(user.followers.count, "Follower")%> | Following <%= user.all_following.count%></p>
 
-<div class="row user-row">
-     <div class="user-details col-md-4">
-        <h4><a class="text-center" href="/users/<%=user.id%>"><p>@<%= user.username %></p></a></h4>
-        <p class="text-center" >Read <%= user.books.count %> books </p> 
-        <p class="text-center"> <%= pluralize(user.followers.count, "Follower")%> | Following <%= user.all_following.count%></p>
-        
-        
-        <% if user_signed_in? %>
-            <% if !current_user.following?(user) %>
-                <%= simple_form_for @follow do |f| %>
-                    <%= f.hidden_field :follable_id,   :value => user.id %>
-                    <%= f.button :submit, "Follow", class: "btn-success btn btn-xs center-block" %>
-                <% end %>
-            <% else %>
-                <%= simple_form_for(@follow, :html => {:method => 'delete'})  do |f|  %>
-                    <%= f.hidden_field :follable_id,   :value => user.id %>
-                    <%= f.button :submit, "Unfollow", class: "btn-danger btn btn-xs center-block" %>
-                <% end %>
+    <% if user_signed_in? %>
+        <% if !current_user.following?(user) %>
+            <%= simple_form_for @follow do |f| %>
+                <%= f.hidden_field :follable_id,   :value => user.id %>
+                <%= f.button :submit, "Follow", class: "btn-success btn btn-xs center-block" %>
+            <% end %>
+        <% else %>
+            <%= simple_form_for(@follow, :html => {:method => 'delete'})  do |f|  %>
+                <%= f.hidden_field :follable_id,   :value => user.id %>
+                <%= f.button :submit, "Unfollow", class: "btn-danger btn btn-xs center-block" %>
             <% end %>
         <% end %>
-        
-    </div>  
-</div>
+    <% end %>
+
+</div>  

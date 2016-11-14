@@ -6,7 +6,7 @@ class BooksController < ApplicationController
     def index
         redirect_to feed_path if current_user
         #Get all the most recently read books regardless of who read them
-        @books = Book.all.order("updated_at DESC").take(4)
+        @books = UserBook.all.order("created_at DESC").take(4)
     end
     
     def new
@@ -26,9 +26,12 @@ class BooksController < ApplicationController
         # Either retrieve the book or create it, then add an association between user and book in UserBook table
         @book = Book.where(isbn: params[:book][:isbn]).first
         if @book
-            @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id, list_type: params[:list_type])
-            @userBook.save
-            redirect_to new_book_path
+            @userBook = UserBook.create(user_id: current_user.id, book_id: @book.id, isbn: @book.isbn, list_type: params[:type])
+            if @userBook.save
+                redirect_to new_book_path
+            else
+                redirect_to new_book_path
+            end
         #Else create the book and then the association
         else
             @book = Book.new(book_params)

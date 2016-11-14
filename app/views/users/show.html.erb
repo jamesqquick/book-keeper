@@ -1,9 +1,9 @@
 
 <div>
     <div class="row user-row">
-            <h4><a class="text-center" href="/users/<%=@user.id%>"><p>@<%= @user.username %></p></a></h4>
-            <p class="text-center" >Read <%= @readBooks.count %> books </p> 
-            <p class="text-center"> <%= pluralize(@user.followers.count, "Follower")%> | Following <%= @user.all_following.count%></p>
+        <h4><a class="text-center" href="/users/<%=@user.id%>"><p>@<%= @user.username %></p></a></h4>
+        <p class="text-center" >Read <%= @readBooks.count %> books </p> 
+        <p class="text-center"> <%= pluralize(@user.followers.count, "Follower")%> | Following <%= @user.all_following.count%></p>
     </div>  
 
     <h3 class="page-header">Read Books</h3>

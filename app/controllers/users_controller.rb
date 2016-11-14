@@ -26,6 +26,7 @@ class UsersController < ApplicationController
   end
   
   def feed
+      @book = Book.new
       @friends =  current_user.all_following;
       @friendActivities = Array.new
       @friends.each do |friend|

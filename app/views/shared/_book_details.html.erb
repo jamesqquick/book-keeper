@@ -1,0 +1,36 @@
+<div class="col-md-4">
+    <%= image_tag book.image_url(), class: "book-show center-block" %> 
+</div>
+<div class="col-md-7">
+    <h3><%= book.title %></h3>
+    <p>By <%= book.author %></p>
+    <p><%= book.description %></p>
+    <% if !@review.id.present? %>
+        <%= link_to "Add Review", new_book_review_path(@book), class: "btn btn-primary" %>     
+    <% end %>
+    <% if user_signed_in? %>
+        <% @newBook = Book.new %>
+        <% if UserBook.where(book_id: book.id, user_id: current_user.id, list_type:"read").empty?  %>
+              <%= simple_form_for @newBook do |f| %>
+                <%= f.hidden_field :title,           :value => book.title %>
+                <%= f.hidden_field :author,          :value => book.author %>
+                <%= f.hidden_field :description,     :value => book.description %>
+                <%= f.hidden_field :image_url,       :value => book.image_url %>
+                <%= f.hidden_field :isbn,            :value => book.isbn %>
+                <%= f.button :submit, "Read", class: "btn-primary btn", name: "type", value: "read" %>
+              <% end %>
+        <% end %>
+        
+        <% if UserBook.where(book_id: book.id, user_id: current_user.id, list_type:"queue").empty?  %>
+            <%= simple_form_for @newBook do |f| %>
+                  <%= f.hidden_field :title,           :value => book.title %>
+                  <%= f.hidden_field :author,          :value => book.author %>
+                  <%= f.hidden_field :description,     :value => book.description %>
+                  <%= f.hidden_field :image_url,       :value => book.image_url %>
+                  <%= f.hidden_field :isbn,            :value => book.isbn %>
+                  <%= f.button :submit, "Add To Queue", class: "btn-primary btn", name: "type", value: "queue" %>
+              <% end %>
+          <% end %>
+      <% end %>
+
+</div> 

@@ -9,8 +9,8 @@
 	background-color: #fff;
 	border-radius: 5px;
 	box-shadow: 3px 3px 5px 6px #ccc;
-	padding: 1.5em 1.25em;
-	margin:10px;
+	padding: 1em 1em;
+	margin: 15px;
 }
 
 .jumbotron {
@@ -28,8 +28,12 @@
 	padding:15px;
 }
 
-.book-show-section {
+.section {
+	margin-top: 50px;
+}
 
+.book-show-section {
+	
 	.book-detail-row {
 	    display:flex;
 	    align-items:center;
@@ -137,6 +141,47 @@
 	
 	.books-row {
 		@include background-tile;
+	}
+}
+
+.activity-row {
+	text-align:center;
+	.lead {
+		margin:5px 0;
+	}
+	
+	.activity {
+		p {
+			margin-bottom:0px;
+		}
+	}
+}
+
+form#new_book {
+	display:inline;
+}
+
+.search-section {
+	
+	.search-book {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		@include background-tile;
+
+	}
+}
+
+
+
+.activity-section{
+	
+	.activity {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		@include background-tile;
+
 	}
 }
 

@@ -1,7 +1,4 @@
-<div class="col-md-8 col-md-offset-2">
-    
-
-    
+<div class="col-md-10 col-md-offset-1">
     <div class="row">
         <h3 class="page-header">Add Friend</h3>    
         <form class="" id="user-search-form" action="/friends" method="get">
@@ -14,17 +11,20 @@
         </form>   
     </div>
     
-    <% unless @users.nil? %>
-        <% if @users.empty? %>
-            <p>Could not find user with that username</p>
-        <% else %>
-            <% @users.each do |user| %>
-                <% if user.username != current_user.username %>
-                    <%= render partial: 'shared/user_details', locals: {user: user} %>
-                <% end %>     
+    <div class="row">
+        <% unless @users.nil? %>
+            <% if @users.empty? %>
+                <p>Could not find user with that username</p>
+            <% else %>
+                <% @users.each do |user| %>
+                    <% if user.username != current_user.username %>
+                        <%= render partial: 'shared/user_details', locals: {user: user} %>
+                    <% end %>     
+                <% end %>
             <% end %>
-        <% end %>
-    <% end %>
+        <% end %>    
+    </div>
+    
     
         
     <div class="row">
@@ -35,7 +35,5 @@
             <% end %>  
         <% end %>
     </div>
-    
-
-    
+        
 </div>

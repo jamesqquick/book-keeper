@@ -1,0 +1,13 @@
+<div class="edit-book">
+    <% if false %> <%# Only give admins the right to delete the books %>
+        <% if user_signed_in? %>
+            <% if @book.user_id == current_user.id %>
+                <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_book_path(@book), class: "btn book-btn"  %>
+                <%= link_to '<i class="fa fa-trash-o"></i>'.html_safe, book_path(@book), method: :delete, data: {confirm: "Are you sure" }, class: "btn book-btn"  %>
+            <% end %>
+        <% end %> 
+    <% end %> 
+    <% if !@review.id.present? %>
+        <%= link_to "Add Review", new_book_review_path(@book), class: "btn btn-primary" %>     
+    <% end %>
+</div>

@@ -1,86 +1,23 @@
-
-<% if !@searchBooks.nil? %>
-    <% @searchBooks.each do |searchBook| %>
-        <div class="col-md-3 col-sm-6">
-                <a href="#book-<%=searchBook.isbn%>" data-toggle="modal">
-                    <div class="book-hover">
-                        <div class="book-hover-content">
-                            <p>View Details</p>
-                        </div>
-                    </div>
-                    <%=image_tag  searchBook.image_link, class: "book" %>  
-                </a>
-                
-                <!-- Modal content-->
-              <!-- Modal -->
-              <div class="modal fade" id="book-<%=searchBook.isbn%>" role="dialog">
-                <div class="modal-dialog">
-                
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-sm-10 col-sm-offset-1">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                                <div class="col-sm-4">
-                                    <%=image_tag  searchBook.image_link, class:"img-responsive" %> 
-                                </div>
-                                
-                                <div class="div col-sm-8"> <!-- Book details Form -->
-                                  <h4 class="modal-title"><strong><%= searchBook.title%></strong> </h4>
-                                    
-                                    <!-- dont allow adding of book if user already has -->
-                                    <% puts " ISBN Number: #{searchBook.isbn} and User ID #{current_user.id}" %>
-                                    <% puts "Owns Book:  #{!UserBook.where(isbn: searchBook.isbn, user_id: current_user.id).empty?}" %>
-                                    <% if UserBook.where(isbn: searchBook.isbn, user_id: current_user.id).empty?  %>
-                                      <p><strong>By <%=searchBook.authors_array.first%></strong> </p>
-                                      <% if user_signed_in? %>
-                                          <%= simple_form_for @book do |f| %>
-                                              <%= f.hidden_field :category_name,   :value => searchBook.categories %>
-                                              <%= f.hidden_field :title,           :value => searchBook.title %>
-                                              <%= f.hidden_field :author,          :value => searchBook.authors_array.first %>
-                                              <%= f.hidden_field :description,     :value => searchBook.description %>
-                                              <%= f.hidden_field :image_url,       :value => searchBook.image_link %>
-                                              <%= f.hidden_field :isbn,            :value => searchBook.isbn %>
-            
-                                              <%= f.button :submit, "Read", class: "btn-primary btn btn-sm", name: "type", value: "read" %>
-                                          <% end %>
-                                          
-                                          <%= simple_form_for @book do |f| %>
-                                              <%= f.hidden_field :category_name,   :value => searchBook.categories %>
-                                              <%= f.hidden_field :title,           :value => searchBook.title %>
-                                              <%= f.hidden_field :author,          :value => searchBook.authors_array.first %>
-                                              <%= f.hidden_field :description,     :value => searchBook.description %>
-                                              <%= f.hidden_field :image_url,       :value => searchBook.image_link %>
-                                              <%= f.hidden_field :isbn,            :value => searchBook.isbn %>
-                                              <%= f.hidden_field :type,             :value => "queue" %>
-                                              <%= f.button :submit, "Add To Queue", class: "btn-primary btn btn-sm", name: "type", value: "queue" %>
-                                          <% end %>
-                                          
-
-                                      <% end %>
-                                    <% else %>
-                                      <p>You've already marked this book</p>
-                                    <% end %>
-                                </div> <!-- end details content -->                              
-                            </div>
-
-                        </div><!-- end row -->
-                    </div>
-                    <div class="modal-body">
-                      <p><%=searchBook.description%></p>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+      <div class="section search-section">
+          <% if !@searchBooks.nil? %>
+              <% @searchBooks.each do |searchBook| %>
+                  <div class="row search-book">
+                      <div class="col-sm-4">
+                          <%= image_tag searchBook.image_link, class: "book-show center-block" %> 
+                          <a href="#book-<%=searchBook.isbn%>"></a>
+                      </div>
+                      <div class="col-sm-8">
+                          <h4><%= searchBook.title %></h4>
+                          <p>By <%= searchBook.authors_array.first %></p>
+                          <p><%= truncate(searchBook.description, length:300)   %></p>
+                          <%= render partial: 'shared/new_book_options', locals: {book: searchBook} %>
+                      </div>
                   </div>
-                </div>
-              </div>
+              <% end %> <!-- end iterate through search books -->
+          <% end %><!-- searchBooks exist-->
+      </div><!-- end search-section -->
+  </div>
+</div>
 
-            
-            
-        </div>
-        
-        
-    <% end %>
-<% end %>

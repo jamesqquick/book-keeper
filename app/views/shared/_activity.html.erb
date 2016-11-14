@@ -1,4 +1,15 @@
 <% @activityUser  = User.find(activity.user_id) %>
 <% @activityBook  = Book.find(activity.book) %>
-<h3><a><%= @activityUser.username %></a> <%=activity.list_type %> "<%= @activityBook.title %>"</h3>
-<h4><%= time_ago_in_words(activity.updated_at) %> ago</h4>
+
+<div class="col-sm-4">
+    <%= image_tag @activityBook.image_url, class: "book-show center-block" %> 
+</div>
+<div class="col-sm-8">
+      <h4><a href="/books/<%=@activityBook.id%>"><%= @activityBook.title %></a></h4>
+      <p>By <%= @activityBook.author %></p>
+      <p><%=activity.list_type %> by <a href="users/<%= @activityUser.id %>"><%= @activityUser.username %></a> <%= time_ago_in_words(activity.updated_at) %> ago</p>
+</div>
+
+
+
+

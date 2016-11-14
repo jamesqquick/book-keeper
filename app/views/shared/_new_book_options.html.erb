@@ -1,0 +1,31 @@
+<% if user_signed_in? %>
+
+    <% if UserBook.where(isbn: book.isbn, user_id: current_user.id, list_type:"read").empty?  %>
+
+          <%= simple_form_for @book do |f| %>
+              <%= f.hidden_field :title,           :value => book.title %>
+              <%= f.hidden_field :author,          :value => book.authors_array.first %>
+              <%= f.hidden_field :description,     :value => book.description %>
+              <%= f.hidden_field :image_url,       :value => book.image_link %>
+              <%= f.hidden_field :isbn,            :value => book.isbn %>
+              <%= f.button :submit, "Read", class: "btn-primary btn", name: "type", value: "read" %>
+          <% end%>
+    <% else %>
+      <p><small>You've already read this book</small></p>
+    <% end %>
+     
+     <% if UserBook.where(isbn: book.isbn, user_id: current_user.id, list_type:"queue").empty?  %>
+      
+          <%= simple_form_for @book do |f| %>
+              <%= f.hidden_field :title,           :value => book.title %>
+              <%= f.hidden_field :author,          :value => book.authors_array.first %>
+              <%= f.hidden_field :description,     :value => book.description %>
+              <%= f.hidden_field :image_url,       :value => book.image_link %>
+              <%= f.hidden_field :isbn,            :value => book.isbn %>
+              <%= f.button :submit, "Add To Queue", class: "btn-primary btn", name: "type", value: "queue" %>
+          <% end %>
+    <% else %>
+      <p><small>You've already queued this book</small></p>
+    <% end %>
+<% end %>
+
