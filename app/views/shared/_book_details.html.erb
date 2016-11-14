@@ -3,9 +3,9 @@
 </div>
 <div class="col-md-7">
     <h3><%= book.title %></h3>
-    <p>By <%= book.author %></p>
+    <p>By <a href="https://book-keeper-jamesqquick.c9users.io/books/new/?q=<%=book.author%>"><%= book.author %></a></p>
     <p><%= book.description %></p>
-    <% if !@review.id.present? %>
+    <% if user_signed_in? && !@review.id.present? %>
         <%= link_to "Add Review", new_book_review_path(@book), class: "btn btn-primary" %>     
     <% end %>
     <% if user_signed_in? %>

@@ -48,9 +48,11 @@ class BooksController < ApplicationController
     end
     
     def show
-        @reviews = @book.reviews.order("updated_at DESC")
-        #Check to see if the user has already reviewed this book
-        @review = @book.reviews.where(user_id: current_user.id).first_or_initialize
+            @reviews = @book.reviews.order("updated_at DESC")
+        if current_user
+            #Check to see if the user has already reviewed this book
+            @review = @book.reviews.where(user_id: current_user.id).first_or_initialize
+        end
     end
     
     
